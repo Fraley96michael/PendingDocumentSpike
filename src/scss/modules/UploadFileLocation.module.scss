@@ -1,0 +1,226 @@
+@import "./Root.module.scss";
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  overflow: auto;
+}
+
+.overlay::-webkit-scrollbar {
+  display: none;
+}
+
+.modal {
+  background-color: $white;
+  overflow: hidden;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 10px 10px -5px $transparent-black-3,
+    0 20px 25px -5px $transparent-black-2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  max-height: 90vh;
+  max-width: 90vw;
+  width: 750px;
+  overflow: auto;
+  align-items: center;
+}
+.modal::-webkit-scrollbar {
+  display: none;
+}
+.upload__modal__container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.heading__container {
+  margin-bottom: 20px;
+  padding: 0 0 10px;
+  align-self: stretch;
+  position: relative;
+}
+.leadingContent {
+  padding: 0 0 0 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.text {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex: 1;
+}
+.heading {
+  color: $gray-900;
+  align-self: stretch;
+  margin-bottom: 8px;
+  @include text-base-leading-7-font-semibold;
+}
+.detail {
+  color: $gray-500;
+  align-self: stretch;
+  @include text-sm-leading-5-font-normal;
+}
+.x {
+  width: 20px;
+  height: 20px;
+}
+.documentUpload {
+  width: 572px;
+  height: 1px;
+  background-color: $gray-200;
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+}
+.upload__details__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.upload__for__container {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.label {
+  color: $gray-700;
+  @include text-sm-leading-4-font-medium;
+}
+
+.must__submitt__text {
+  color: $material-theme-sys-light-on-surface-variant;
+  @include text-xs-leading-none-font-normal;
+}
+.upload__description__container {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.documents__container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.formFieldsCheckboxInput {
+  margin-right: 8px;
+  width: 14px;
+  height: 14px;
+}
+
+.formLayoutsDragAndDrop {
+  background-color: $transparent-white;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 500px;
+  border: 2px solid $gray-300;
+}
+
+.fileNameExtention {
+  color: $gray-800;
+  @include inter-13-regular;
+}
+.fileName {
+  color: $gray-700;
+  opacity: 0.7;
+  @include inter-11-regular;
+}
+
+.fileDropContainer {
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.fileDropContainer::-webkit-scrollbar {
+  display: none;
+}
+.fileUploadContainer {
+  display: flex;
+  align-items: center;
+}
+.formLayoutsTextButton {
+  margin-right: 4px;
+}
+.supportingText {
+  color: $gray-600;
+  @include text-sm-leading-5-font-medium;
+}
+.cancel__upload__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  width: 100%;
+}
+
+.button {
+  height: auto;
+  padding: 8px 16px;
+  &:not(:last-of-type) {
+    margin-right: 12px;
+  }
+}
+
+.uploadedFile {
+  display: flex;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  padding: 12px;
+  margin: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    color: #333;
+    margin: 0;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+    margin-right: 8px;
+  }
+}
+.hidden {
+  display: none;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+  margin-left: 8px;
+}

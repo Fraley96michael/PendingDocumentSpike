@@ -1,0 +1,27 @@
+@import "./Root.module.scss";
+
+.badgeDot {
+  padding: 1px;
+  display: flex;
+  align-items: center;
+}
+.required {
+  width: 6px;
+  height: 6px;
+  background-color: $yellow-400;
+  border-radius: 50%;
+}
+
+.pending {
+  width: 6px;
+  height: 6px;
+  background-color: $blue-600;
+  border-radius: 50%;
+}
+
+.declined {
+  width: 6px;
+  height: 6px;
+  background-color: $red-600;
+  border-radius: 50%;
+}

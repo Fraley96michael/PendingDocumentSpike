@@ -1,0 +1,74 @@
+@import "./Root.module.scss";
+
+.closeConfirmationOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+.closeConfirmationModal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closeConfirmationModal p {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  text-align: center;
+  color: black;
+}
+
+.closeConfirmationModal button {
+  font-size: 14px;
+  font-weight: 400;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 5px;
+  display: inline-block;
+  width: 100px;
+}
+
+.closeConfirmationModal button:hover {
+  background-color: #0056b3;
+}
+
+.noButton {
+  background-color: $white !important;
+  border-radius: 6px;
+  padding: 8px 16px;
+  box-shadow: 0 1px 2px 0 $transparent-black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray-300 !important;
+  width: 100%;
+  &:hover {
+    background-color: #5a6268 !important;
+  }
+}
+.text {
+  color: $gray-700;
+  @include text-sm-leading-5-font-medium;
+}
+
+.text__yes {
+  color: #fff;
+  @include text-sm-leading-5-font-medium;
+}

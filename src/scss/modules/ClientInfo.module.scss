@@ -1,0 +1,19 @@
+@import "./Root.module.scss";
+.client__info__container {
+  padding: 0 0 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1;
+  margin-left: 32px;
+}
+.name {
+  color: $gray-700;
+  margin-bottom: 10px;
+  @include text-sm-leading-4-font-medium;
+}
+.decree {
+  color: $material-theme-sys-light-on-surface-variant;
+  @include text-xs-leading-none-font-normal;
+}

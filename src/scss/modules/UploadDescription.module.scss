@@ -1,0 +1,11 @@
+@import "./Root.module.scss";
+.indication__container {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  width: 572px;
+}
+.label {
+  color: $gray-700;
+  @include text-sm-leading-5-font-medium;
+}

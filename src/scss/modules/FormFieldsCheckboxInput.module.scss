@@ -1,0 +1,23 @@
+@import "./Root.module.scss";
+
+.formFieldsCheckboxInput {
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 3.5px 2.5px 3.5px 2.51px;
+  display: flex;
+  align-items: center;
+  border: 1px solid $blue-600;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+
+.checked {
+  background-color: $blue-600;
+}
+
+.icon {
+  flex: 1;
+  align-self: stretch;
+  object-fit: cover;
+}

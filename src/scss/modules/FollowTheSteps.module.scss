@@ -1,0 +1,59 @@
+@import "./Root.module.scss";
+
+.frame {
+  background-color: $white;
+  padding: 15px 14px 121px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.instructions {
+  margin-bottom: 25px;
+  color: $gray-800;
+  @include proxima-nova-14-regular;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.instructions__heading1 {
+  color: $gray-800;
+  @include proxima-nova-14-semi-bold;
+}
+
+.instructions__heading2 {
+  color: $gray-800;
+  @include proxima-nova-13-semi-bold;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.tableNameHeader {
+  color: $black;
+  @include roboto-condensed-14-regular;
+}
+
+.button {
+  background-color: $blue-100;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 7px 11px;
+  box-shadow: 0 1px 2px 0 $transparent-black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  color: $blue-900;
+  @include text-xs-leading-none-font-normal;
+}
+
+.badge {
+  height: 26px;
+}

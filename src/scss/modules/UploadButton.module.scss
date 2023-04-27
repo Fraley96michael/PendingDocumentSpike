@@ -1,0 +1,16 @@
+@import "./Root.module.scss";
+//UploadButton.module.scss
+.button {
+  background-color: $blue-500;
+  border-radius: 6px;
+  padding: 9px 17px;
+  box-shadow: 0 1px 2px 0 $transparent-black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.text {
+  color: $white;
+  @include text-sm-leading-5-font-medium;
+}

@@ -1,0 +1,12 @@
+@import "./Root.module.scss";
+.label {
+  color: $gray-700;
+  @include text-xs-leading-5-font-normal;
+}
+.formFieldsCheckbox {
+  display: flex;
+  align-items: center;
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+}

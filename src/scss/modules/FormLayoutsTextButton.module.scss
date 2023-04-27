@@ -1,0 +1,12 @@
+@import "./Root.module.scss";
+
+.formLayoutsTextButton {
+  background-color: $white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+.text {
+  color: $blue-600;
+  @include text-sm-leading-5-font-medium;
+}

@@ -1,0 +1,18 @@
+@import "./Root.module.scss";
+//DocumentType.module.scss
+.fieldset {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; // Add this line
+  width: 374px;
+}
+
+.label {
+  color: $gray-700;
+  margin-right: 20px;
+  @include text-sm-leading-5-font-medium;
+}
+.decree {
+  color: $gray-700;
+  @include text-sm-leading-4-font-medium;
+}

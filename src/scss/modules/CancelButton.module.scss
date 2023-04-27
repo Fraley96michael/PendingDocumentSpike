@@ -1,0 +1,17 @@
+@import "./Root.module.scss";
+//CancelButton.module.scss
+.button {
+  background-color: $white;
+  border-radius: 6px;
+  padding: 8px 16px;
+  box-shadow: 0 1px 2px 0 $transparent-black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $gray-300;
+  width: 100%;
+}
+.text {
+  color: $gray-700;
+  @include text-sm-leading-5-font-medium;
+}
