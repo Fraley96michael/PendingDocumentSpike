@@ -1,7 +1,7 @@
 import styles from "../scss/modules/X.module.scss";
 
 interface XProps {
-  onClick: () => void;
+  onClick: (event: React.MouseEvent) => void;
 }
 
 export const X = ({ onClick }: XProps) => {

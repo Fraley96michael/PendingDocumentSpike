@@ -2,6 +2,12 @@ import { useRef, useCallback, useState } from "react";
 import FormLayoutsTextButton from "./FormLayoutsTextButton";
 import styles from "../scss/modules/UploadModal.module.scss";
 import AddFileButton from "./AddFileButton";
+import {
+  handleFileUpload,
+  handleDrop,
+  handleDragOver,
+  handleDelete,
+} from "../shared/utils";
 
 function UploadFileLocation({
   uploadedFiles: initialUploadedFiles = [],
@@ -14,6 +20,53 @@ function UploadFileLocation({
   handleDeleteFile: (file: File) => void;
   updateUploadedFiles: (files: (File | null)[]) => void;
 }) {
+  // const dropzoneRef = useRef<HTMLDivElement>(null);
+
+  // const [isFileAccepted, setIsFileAccepted] = useState<boolean | null>(null);
+  // const [uploadedFiles, setUploadedFiles] = useState<(File | null)[]>(
+  //   initialUploadedFiles ? initialUploadedFiles : []
+  // );
+
+  // const handleFileUpload = useCallback(
+  //   (files: File[] | null) => {
+  //     if (files) {
+  //       files.forEach((file) => {
+  //         setIsFileAccepted(file.type === "application/pdf");
+  //         setUploadedFiles((prev) => [...prev, file]);
+  //       });
+  //     } else {
+  //       setIsFileAccepted(null);
+  //       setUploadedFiles([]);
+  //     }
+  //   },
+  //   [setUploadedFiles]
+  // );
+
+  // const handleDrop = useCallback(
+  //   (e: React.DragEvent<HTMLDivElement>) => {
+  //     e.preventDefault();
+  //     const files = e.dataTransfer.files;
+  //     if (files.length > 0) {
+  //       handleFileUpload(Array.from(files));
+  //     }
+  //   },
+  //   [handleFileUpload]
+  // );
+
+  // const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   e.dataTransfer.dropEffect = "copy";
+  // }, []);
+
+  // const handleDelete = (fileToDelete: File) => {
+  //   const newUploadedFiles = uploadedFiles.filter(
+  //     (file) => file !== fileToDelete
+  //   );
+  //   setUploadedFiles(newUploadedFiles);
+  //   handleDeleteFile(fileToDelete);
+  //   updateUploadedFiles(newUploadedFiles);
+  // };
+
   const dropzoneRef = useRef<HTMLDivElement>(null);
 
   const [isFileAccepted, setIsFileAccepted] = useState<boolean | null>(null);
@@ -21,51 +74,36 @@ function UploadFileLocation({
     initialUploadedFiles ? initialUploadedFiles : []
   );
 
-  const handleFileUpload = useCallback(
+  const handleFileUploadCallback = useCallback(
     (files: File[] | null) => {
-      if (files) {
-        files.forEach((file) => {
-          setIsFileAccepted(file.type === "application/pdf");
-          setUploadedFiles((prev) => [...prev, file]);
-        });
-      } else {
-        setIsFileAccepted(null);
-        setUploadedFiles([]);
-      }
+      handleFileUpload(files, setUploadedFiles, setIsFileAccepted);
     },
-    [setUploadedFiles]
+    [setUploadedFiles, setIsFileAccepted]
   );
 
-  const handleDrop = useCallback(
+  const handleDropCallback = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      const files = e.dataTransfer.files;
-      if (files.length > 0) {
-        handleFileUpload(Array.from(files));
-      }
+      handleDrop(e, handleFileUploadCallback);
     },
-    [handleFileUpload]
+    [handleFileUploadCallback]
   );
-
-  const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "copy";
-  }, []);
-
-  const handleDelete = (fileToDelete: File) => {
-    const newUploadedFiles = uploadedFiles.filter(
-      (file) => file !== fileToDelete
+  const handleDeleteCallback = (fileToDelete: File) => {
+    handleDelete(
+      fileToDelete,
+      uploadedFiles,
+      setUploadedFiles,
+      handleDeleteFile,
+      updateUploadedFiles
     );
-    setUploadedFiles(newUploadedFiles);
-    handleDeleteFile(fileToDelete);
-    updateUploadedFiles(newUploadedFiles);
   };
+
+  const handleDragOverCallback = useCallback(handleDragOver, []);
   return (
     <div
       ref={dropzoneRef}
       className={`${styles.formLayoutsDragAndDrop} ${className}`}
-      onDrop={handleDrop}
-      onDragOver={handleDragOver}
+      onDrop={handleDropCallback}
+      onDragOver={handleDragOverCallback}
     >
       <div className={styles.fileDropContainer}>
         {uploadedFiles.length > 0 ? (
@@ -78,7 +116,9 @@ function UploadFileLocation({
               <p>{file ? file.name : "No name included"}</p>
               <button
                 className={styles.deleteButton}
-                onClick={() => handleDelete(file ? file : new File([], ""))}
+                onClick={() =>
+                  handleDeleteCallback(file ? file : new File([], ""))
+                }
               >
                 X
               </button>
@@ -86,13 +126,13 @@ function UploadFileLocation({
           ))
         ) : (
           <div className={styles.fileUploadContainer}>
-            <FormLayoutsTextButton onFileChange={handleFileUpload} />
+            <FormLayoutsTextButton onFileChange={handleFileUploadCallback} />
             <p className={styles.supportingText}>or drag and drop</p>
           </div>
         )}
       </div>
       {uploadedFiles.length > 0 ? (
-        <AddFileButton onFileChange={handleFileUpload} />
+        <AddFileButton onFileChange={handleFileUploadCallback} />
       ) : null}
     </div>
   );

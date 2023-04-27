@@ -11,6 +11,12 @@ import { DocumentType } from "./DocumentType";
 import { useState } from "react";
 import { CloseConfirmationModal } from "./CloseConfirmationModal";
 import DocumentUpload from "./DocumentUpload";
+import {
+  handleCloseConfirmation,
+  handleDeleteFile,
+  handleToggleUploadLocation,
+  updateUploadedFiles,
+} from "../../shared/utils";
 
 const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
   type DocType =
@@ -19,11 +25,13 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
     | "socialSecurityCard"
     | "adoptionCertificate";
   const [showUploadLocations, setShowUploadLocations] = useState({
-    birthCertificate: { show: false, file: null },
-    hospitalRecords: { show: false, file: null },
-    socialSecurityCard: { show: false, file: null },
-    adoptionCertificate: { show: false, file: null },
+    birthCertificate: { show: false, file: null as File | null },
+    hospitalRecords: { show: false, file: null as File | null },
+    socialSecurityCard: { show: false, file: null as File | null },
+    adoptionCertificate: { show: false, file: null as File | null },
   });
+  const [showCloseConfirmation, setShowCloseConfirmation] = useState(false);
+
   const documentTypes: { label: string; key: DocType }[] = [
     { label: "Birth Certificate", key: "birthCertificate" },
     { label: "Hospital Records", key: "hospitalRecords" },
@@ -31,51 +39,17 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
     { label: "Adoption Certificate", key: "adoptionCertificate" },
   ];
 
-  const handleToggleUploadLocation = (
-    docType: keyof typeof showUploadLocations
-  ) => {
-    setShowUploadLocations((prev) => ({
-      ...prev,
-      [docType]: { ...prev[docType], show: !prev[docType].show },
-    }));
-  };
-
-  const [showCloseConfirmation, setShowCloseConfirmation] = useState(false);
-
   const askCloseConfirmation = () => {
     setShowCloseConfirmation(true);
   };
-
-  const handleCloseConfirmation = (confirmed: boolean) => {
-    setShowCloseConfirmation(false);
-    if (confirmed) {
-      closeModal();
+  const onHandleCloseConfirmation = (event: React.MouseEvent) => {
+    // Check if the event target is the overlay div
+    if (event.target === event.currentTarget) {
+      handleCloseConfirmation(false, closeModal, setShowCloseConfirmation);
     }
   };
-
-  const handleDeleteFile = (
-    docType: keyof typeof showUploadLocations,
-    file: File
-  ) => {
-    console.log("clicked");
-    setShowUploadLocations((prev) => ({
-      ...prev,
-      [docType]: { ...prev[docType], file: null },
-    }));
-  };
-
-  const updateUploadedFiles = (
-    docType: keyof typeof showUploadLocations,
-    newFiles: (File | null)[]
-  ) => {
-    setShowUploadLocations((prev) => ({
-      ...prev,
-      [docType]: { ...prev[docType], file: newFiles[0] || null },
-    }));
-  };
-
   return (
-    <div className={styles.overlay} onClick={askCloseConfirmation}>
+    <div className={styles.overlay} onClick={onHandleCloseConfirmation}>
       <div
         className={`${styles.centeredModal} ${styles.modal}`}
         onClick={(e) => e.stopPropagation()}
@@ -84,7 +58,7 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
           <div className={styles.heading__container}>
             <div className={styles.leadingContent}>
               <Heading />
-              <X onClick={askCloseConfirmation} />
+              <X onClick={onHandleCloseConfirmation} />
             </div>
             <div className={styles.documentUpload} />
           </div>
@@ -112,9 +86,19 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
                       ? [showUploadLocations[key].file]
                       : []
                   }
-                  handleToggleUploadLocation={handleToggleUploadLocation}
-                  handleDeleteFile={handleDeleteFile}
-                  updateUploadedFiles={updateUploadedFiles}
+                  handleToggleUploadLocation={(docType) =>
+                    handleToggleUploadLocation(docType, setShowUploadLocations)
+                  }
+                  handleDeleteFile={(docType, file) =>
+                    handleDeleteFile(docType, file, setShowUploadLocations)
+                  }
+                  updateUploadedFiles={(docType, newFiles) =>
+                    updateUploadedFiles(
+                      docType,
+                      newFiles,
+                      setShowUploadLocations
+                    )
+                  }
                 />
               ))}
             </div>
@@ -128,6 +112,8 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
       {showCloseConfirmation && (
         <CloseConfirmationModal
           handleCloseConfirmation={handleCloseConfirmation}
+          closeModal={closeModal}
+          setShowCloseConfirmation={setShowCloseConfirmation}
         />
       )}
     </div>

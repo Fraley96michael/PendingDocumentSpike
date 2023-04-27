@@ -1,6 +1,7 @@
 import styles from "/src/scss/modules/CustomTable.module.scss";
 import Info from "./Info";
 import Badge from "./Badge";
+import { handleButtonClick } from "../shared/utils";
 
 const DocumentTable = ({
   openUploadModal,
@@ -35,13 +36,7 @@ const DocumentTable = ({
       status: { type: "declined", text: "Declined/Invalid" },
     },
   ];
-  const handleButtonClick = (uploadText: string) => {
-    if (uploadText === "Upload") {
-      openUploadModal();
-    } else if (uploadText === "Review Documents") {
-      openReviewDocumentsModal();
-    }
-  };
+
   return (
     <table className={styles.table}>
       <thead>
@@ -98,7 +93,13 @@ const DocumentTable = ({
             <td className={styles.table__data__cell}>
               <div
                 className={styles.button}
-                onClick={() => handleButtonClick(row.uploadText)}
+                onClick={() =>
+                  handleButtonClick(
+                    row.uploadText,
+                    openUploadModal,
+                    openReviewDocumentsModal
+                  )
+                }
               >
                 <p className={styles.text}>{row.uploadText}</p>
               </div>
