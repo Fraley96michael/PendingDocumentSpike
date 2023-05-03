@@ -1,4 +1,4 @@
-import styles from "../../scss/modules/DocumentDocumentUploadModal.module.scss";
+import styles from "../../scss/modules/UploadModal.module.scss";
 
 export const Heading = () => (
   <div className={styles.text}>

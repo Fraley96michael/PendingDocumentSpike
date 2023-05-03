@@ -1,7 +1,7 @@
 import X from "../X";
 import CancelButton from "../CancelButton";
 
-import styles from "../../scss/modules/DocumentDocumentUploadModal.module.scss";
+import styles from "../../scss/modules/UploadModal.module.scss";
 import UploadButton from "../UploadButton";
 import { Heading } from "./UploadHeading";
 import { UploadingFor } from "./UploadingFor";
@@ -18,7 +18,7 @@ import {
   updateUploadedFiles,
 } from "../../shared/utils";
 
-const DocumentDocumentUploadModal = ({ closeModal }: { closeModal: () => void }) => {
+const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
   type DocType =
     | "birthCertificate"
     | "hospitalRecords"
@@ -120,4 +120,4 @@ const DocumentDocumentUploadModal = ({ closeModal }: { closeModal: () => void })
   );
 };
 
-export default DocumentDocumentUploadModal;
+export default UploadModal;

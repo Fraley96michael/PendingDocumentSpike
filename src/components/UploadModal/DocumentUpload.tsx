@@ -1,7 +1,7 @@
 import React from "react";
 import { DocumentItem } from "./DocumentItem";
 import UploadFileLocation from "../UploadFileLocation";
-import styles from "../../scss/modules/DocumentDocumentUploadModal.module.scss";
+import styles from "../../scss/modules/UploadModal.module.scss";
 
 type DocType =
   | "birthCertificate"

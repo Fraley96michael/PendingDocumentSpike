@@ -2,11 +2,11 @@ import { Dispatch, SetStateAction } from "react";
 /*
 UploadFileLocation.tsx
 */
-export function handleFileUpload = (
+export function handleFileUpload(
   files: File[] | null,
   setUploadedFiles: Dispatch<SetStateAction<(File | null)[]>>,
   setIsFileAccepted: Dispatch<SetStateAction<boolean | null>>
-) => {
+) {
   if (files) {
     files.forEach((file) => {
       setIsFileAccepted(file.type === "application/pdf");
@@ -16,32 +16,32 @@ export function handleFileUpload = (
     setIsFileAccepted(null);
     setUploadedFiles([]);
   }
-};
+}
 
-export function handleDrop = (
+export const handleDrop = (
   e: React.DragEvent<HTMLDivElement>,
   handleFileUpload: (files: File[] | null) => void
-) => {
+): void => {
   e.preventDefault();
-  export const files = e.dataTransfer.files;
+  const files = e.dataTransfer.files;
   if (files.length > 0) {
     handleFileUpload(Array.from(files));
   }
 };
 
-export function handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+export const handleDragOver = (e: React.DragEvent<HTMLDivElement>): void => {
   e.preventDefault();
   e.dataTransfer.dropEffect = "copy";
 };
 
-export function handleDelete = (
+export const handleDelete = (
   fileToDelete: File,
   uploadedFiles: (File | null)[],
   setUploadedFiles: Dispatch<SetStateAction<(File | null)[]>>,
   handleDeleteFile: (file: File) => void,
   updateUploadedFiles: (files: (File | null)[]) => void
-) => {
-  export const newUploadedFiles = uploadedFiles.filter(
+): void => {
+  const newUploadedFiles = uploadedFiles.filter(
     (file) => file !== fileToDelete
   );
   setUploadedFiles(newUploadedFiles);
@@ -51,13 +51,13 @@ export function handleDelete = (
 /*
 DocumentTable.tsx
 */
-export function handleButtonClick = (
+export const handleButtonClick = (
   uploadText: string,
-  openDocumentDocumentUploadModal: () => void,
+  openUploadModal: () => void,
   openReviewDocumentsModal: () => void
-) => {
+): void => {
   if (uploadText === "Upload") {
-    openDocumentDocumentUploadModal();
+    openUploadModal();
   } else if (uploadText === "Review Documents") {
     openReviewDocumentsModal();
   }
@@ -77,49 +77,49 @@ export interface ShowUploadLocations {
   socialSecurityCard: ShowUploadLocation;
   adoptionCertificate: ShowUploadLocation;
 }
-export function handleToggleUploadLocation = (
+export const handleToggleUploadLocation = (
   docType: keyof ShowUploadLocations,
   setShowUploadLocations: React.Dispatch<
     React.SetStateAction<ShowUploadLocations>
   >
-) => {
+): void => {
   setShowUploadLocations((prev) => ({
     ...prev,
     [docType]: { ...prev[docType], show: !prev[docType].show },
   }));
 };
 
-export function handleCloseConfirmation = (
+export const handleCloseConfirmation = (
   confirmed: boolean,
   closeModal: () => void,
   setShowCloseConfirmation: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+): void => {
   setShowCloseConfirmation(false);
   if (confirmed) {
     closeModal();
   }
 };
 
-export function handleDeleteFile = (
+export const handleDeleteFile = (
   docType: keyof ShowUploadLocations,
   file: File,
   setShowUploadLocations: React.Dispatch<
     React.SetStateAction<ShowUploadLocations>
   >
-) => {
+): void => {
   setShowUploadLocations((prev) => ({
     ...prev,
     [docType]: { ...prev[docType], file: null },
   }));
 };
 
-export function updateUploadedFiles = (
+export const updateUploadedFiles = (
   docType: keyof ShowUploadLocations,
   newFiles: (File | null)[],
   setShowUploadLocations: React.Dispatch<
     React.SetStateAction<ShowUploadLocations>
   >
-) => {
+): void => {
   setShowUploadLocations((prev) => ({
     ...prev,
     [docType]: { ...prev[docType], file: newFiles[0] || null },

@@ -4,10 +4,10 @@ import Badge from "./Badge";
 import { handleButtonClick } from "../shared/utils";
 
 const DocumentTable = ({
-  openDocumentDocumentUploadModal,
+  openUploadModal,
   openReviewDocumentsModal,
 }: {
-  openDocumentDocumentUploadModal: () => void;
+  openUploadModal: () => void;
   openReviewDocumentsModal: () => void;
 }) => {
   const data: any[] = [
@@ -96,7 +96,7 @@ const DocumentTable = ({
                 onClick={() =>
                   handleButtonClick(
                     row.uploadText,
-                    openDocumentDocumentUploadModal,
+                    openUploadModal,
                     openReviewDocumentsModal
                   )
                 }
