@@ -1,7 +1,7 @@
 import styles from "../../scss/modules/DocumentReviewModal.module.scss";
 import X from "../X";
 import { useState } from "react";
-import { CloseConfirmationModal } from "../UploadModal/CloseConfirmationModal";
+import { CloseConfirmationModal } from "../DocumentDocumentUploadModal/CloseConfirmationModal";
 
 const DocumentReviewModal = ({ closeModal }: { closeModal: () => void }) => {
   const DocumentStringArray: string[] = [

@@ -1,6 +1,6 @@
 import { useRef, useCallback, useState } from "react";
 import FormLayoutsTextButton from "./FormLayoutsTextButton";
-import styles from "../scss/modules/UploadModal.module.scss";
+import styles from "../scss/modules/DocumentDocumentUploadModal.module.scss";
 import AddFileButton from "./AddFileButton";
 import {
   handleFileUpload,

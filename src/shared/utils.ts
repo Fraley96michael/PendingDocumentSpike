@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 /*
 UploadFileLocation.tsx
 */
-export const handleFileUpload = (
+export function handleFileUpload = (
   files: File[] | null,
   setUploadedFiles: Dispatch<SetStateAction<(File | null)[]>>,
   setIsFileAccepted: Dispatch<SetStateAction<boolean | null>>
@@ -18,30 +18,30 @@ export const handleFileUpload = (
   }
 };
 
-export const handleDrop = (
+export function handleDrop = (
   e: React.DragEvent<HTMLDivElement>,
   handleFileUpload: (files: File[] | null) => void
 ) => {
   e.preventDefault();
-  const files = e.dataTransfer.files;
+  export const files = e.dataTransfer.files;
   if (files.length > 0) {
     handleFileUpload(Array.from(files));
   }
 };
 
-export const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+export function handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
   e.preventDefault();
   e.dataTransfer.dropEffect = "copy";
 };
 
-export const handleDelete = (
+export function handleDelete = (
   fileToDelete: File,
   uploadedFiles: (File | null)[],
   setUploadedFiles: Dispatch<SetStateAction<(File | null)[]>>,
   handleDeleteFile: (file: File) => void,
   updateUploadedFiles: (files: (File | null)[]) => void
 ) => {
-  const newUploadedFiles = uploadedFiles.filter(
+  export const newUploadedFiles = uploadedFiles.filter(
     (file) => file !== fileToDelete
   );
   setUploadedFiles(newUploadedFiles);
@@ -51,13 +51,13 @@ export const handleDelete = (
 /*
 DocumentTable.tsx
 */
-export const handleButtonClick = (
+export function handleButtonClick = (
   uploadText: string,
-  openUploadModal: () => void,
+  openDocumentDocumentUploadModal: () => void,
   openReviewDocumentsModal: () => void
 ) => {
   if (uploadText === "Upload") {
-    openUploadModal();
+    openDocumentDocumentUploadModal();
   } else if (uploadText === "Review Documents") {
     openReviewDocumentsModal();
   }
@@ -77,7 +77,7 @@ export interface ShowUploadLocations {
   socialSecurityCard: ShowUploadLocation;
   adoptionCertificate: ShowUploadLocation;
 }
-export const handleToggleUploadLocation = (
+export function handleToggleUploadLocation = (
   docType: keyof ShowUploadLocations,
   setShowUploadLocations: React.Dispatch<
     React.SetStateAction<ShowUploadLocations>
@@ -89,7 +89,7 @@ export const handleToggleUploadLocation = (
   }));
 };
 
-export const handleCloseConfirmation = (
+export function handleCloseConfirmation = (
   confirmed: boolean,
   closeModal: () => void,
   setShowCloseConfirmation: React.Dispatch<React.SetStateAction<boolean>>
@@ -100,7 +100,7 @@ export const handleCloseConfirmation = (
   }
 };
 
-export const handleDeleteFile = (
+export function handleDeleteFile = (
   docType: keyof ShowUploadLocations,
   file: File,
   setShowUploadLocations: React.Dispatch<
@@ -113,7 +113,7 @@ export const handleDeleteFile = (
   }));
 };
 
-export const updateUploadedFiles = (
+export function updateUploadedFiles = (
   docType: keyof ShowUploadLocations,
   newFiles: (File | null)[],
   setShowUploadLocations: React.Dispatch<
