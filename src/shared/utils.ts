@@ -146,3 +146,24 @@ export const handleFileChange = (
     onFileChange(null);
   }
 };
+
+/**
+ * Test Helper Function
+ */
+export function createFileList(files: File[]): FileList {
+  const fileList = {
+    length: files.length,
+    item: (index: number) => files[index],
+  } as {
+    length: number;
+    item: (index: number) => File;
+    [index: number]: File;
+  };
+
+  // Add files to fileList
+  for (let i = 0; i < files.length; i++) {
+    fileList[i] = files[i];
+  }
+
+  return fileList as FileList;
+}

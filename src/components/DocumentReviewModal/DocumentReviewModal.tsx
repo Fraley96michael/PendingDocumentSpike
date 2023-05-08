@@ -59,6 +59,8 @@ const DocumentReviewModal = ({ closeModal }: { closeModal: () => void }) => {
       {showCloseConfirmation && (
         <CloseConfirmationModal
           handleCloseConfirmation={handleCloseConfirmation}
+          closeModal={closeModal}
+          setShowCloseConfirmation={setShowCloseConfirmation}
         />
       )}
     </div>
