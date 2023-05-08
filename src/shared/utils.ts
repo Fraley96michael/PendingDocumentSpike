@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, ChangeEvent } from "react";
+
 /*
 UploadFileLocation.tsx
 */
@@ -124,4 +125,24 @@ export const updateUploadedFiles = (
     ...prev,
     [docType]: { ...prev[docType], file: newFiles[0] || null },
   }));
+};
+
+export const handleClick = (
+  fileInputRef: React.RefObject<HTMLInputElement>
+) => {
+  if (fileInputRef.current) {
+    fileInputRef.current.click();
+  }
+};
+
+export const handleFileChange = (
+  e: ChangeEvent<HTMLInputElement>,
+  onFileChange: (files: File[] | null) => void
+) => {
+  const files = e.target.files;
+  if (files && files.length > 0) {
+    onFileChange(Array.from(files));
+  } else {
+    onFileChange(null);
+  }
 };

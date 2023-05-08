@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
+import { handleClick, handleFileChange } from "../shared/utils";
 import styles from "../scss/modules/FormLayoutsTextButton.module.scss";
 
 export const AddFileButton = ({
@@ -8,29 +9,17 @@ export const AddFileButton = ({
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      onFileChange(Array.from(files));
-    } else {
-      onFileChange(null);
-    }
-  };
-
   return (
-    <div className={styles.FormLayoutsTextButton} onClick={handleClick}>
+    <div
+      className={styles.FormLayoutsTextButton}
+      onClick={() => handleClick(fileInputRef)}
+    >
       <input
         ref={fileInputRef}
         type="file"
         multiple
         style={{ display: "none" }}
-        onChange={handleFileChange}
+        onChange={(e) => handleFileChange(e, onFileChange)}
       />
       <p className={styles.text}>Add More Files </p>
     </div>
