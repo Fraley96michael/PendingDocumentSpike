@@ -34,6 +34,7 @@ const DocumentUpload: React.FC<Props> = ({
       label={label}
       onToggle={() => handleToggleUploadLocation(docType)}
       isSubmitted={isSubmitted}
+      hasFile={uploadedFiles.length > 0}
     />
     {!isSubmitted && (
       <UploadFileLocation

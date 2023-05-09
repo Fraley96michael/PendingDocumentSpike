@@ -27,11 +27,11 @@ const FormFieldsCheckboxInput = ({
   return (
     <div
       className={`${styles.formFieldsCheckboxInput} ${
-        isChecked || isSubmitted ? styles.checked : ""
+        isChecked || (isSubmitted && hasFile) ? styles.checked : ""
       }`}
       onClick={handleToggle}
     >
-      {(isChecked || isSubmitted) && (
+      {(isChecked || (isSubmitted && hasFile)) && (
         <img alt="checkmark" className={styles.icon} src={checkmarkIcon} />
       )}
     </div>

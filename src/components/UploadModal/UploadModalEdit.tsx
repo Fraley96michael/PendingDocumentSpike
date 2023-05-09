@@ -1,21 +1,21 @@
 import X from "../X";
 import CancelButton from "../CancelButton";
-
-import styles from "../../scss/modules/UploadModal.module.scss";
+import styles from "../../scss/modules/UploadModalEdit.module.scss";
 import UploadButton from "../UploadButton";
 import { Heading } from "./UploadHeading";
 import { UploadDescription } from "./UploadDescription";
-import { useState } from "react";
 import { CloseConfirmationModal } from "./CloseConfirmationModal";
 import DocumentUpload from "./DocumentUpload";
 import {
   handleCloseConfirmation,
   handleDeleteFile,
+  handleSubmit,
   handleToggleUploadLocation,
   updateUploadedFiles,
 } from "../../shared/utils";
 import AlertWithExclamation from "./AlertWithExclamation";
-import { DocType } from "../../shared/types";
+import { useState } from "react";
+import { documentTypes } from "../../shared/types/enums";
 
 const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
   const [showUploadLocations, setShowUploadLocations] = useState({
@@ -24,15 +24,9 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
     socialSecurityCard: { show: false, file: null as File | null },
     adoptionCertificate: { show: false, file: null as File | null },
   });
-  const [showCloseConfirmation, setShowCloseConfirmation] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const documentTypes: { label: string; key: DocType }[] = [
-    { label: "Birth Certificate", key: "birthCertificate" },
-    { label: "Hospital Records", key: "hospitalRecords" },
-    { label: "Social Security Card", key: "socialSecurityCard" },
-    { label: "Adoption Certificate", key: "adoptionCertificate" },
-  ];
+  const [showCloseConfirmation, setShowCloseConfirmation] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const askCloseConfirmation = () => {
     setShowCloseConfirmation(true);
@@ -42,57 +36,21 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
       handleCloseConfirmation(false, closeModal, setShowCloseConfirmation);
     }
   };
+  const handleSuccess = () => {
+    console.log("Documents uploaded successfully.");
+  };
 
-  const handleSubmit = () => {
-    // Validate the form
-    const requiredFileTypes: DocType[] = [
-      "birthCertificate",
-      "hospitalRecords",
-      "socialSecurityCard",
-      "adoptionCertificate",
-    ];
-    const uploadedFileTypes = requiredFileTypes.filter(
-      (docType: DocType) => showUploadLocations[docType].file !== null
-    );
-    console.log(showUploadLocations);
-
-    if (uploadedFileTypes.length < 2) {
-      alert("Please upload at least two of the required documents.");
-      return;
-    }
-
-    setIsSubmitted(true);
-
-    // Gather the uploaded files
-    const formData = new FormData();
-    uploadedFileTypes.forEach((docType: DocType) => {
-      formData.append(docType, showUploadLocations[docType].file as File);
+  const handleError = (errorMessage: string) => {
+    alert(errorMessage);
+  };
+  const onSubmit = () => {
+    handleSubmit({
+      showUploadLocations,
+      minRequiredFiles: 2,
+      setIsSubmitted,
+      onSuccess: handleSuccess,
+      onError: handleError,
     });
-
-    // Simulate the submission process
-    setTimeout(() => {
-      alert("Documents uploaded successfully.");
-      setIsSubmitted(false);
-    }, 2000);
-
-    // Commented out code for future implementation
-    // try {
-    //   const response = await fetch("/api/upload-documents", {
-    //     method: "POST",
-    //     body: formData,
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error("Failed to upload documents.");
-    //   }
-
-    //   // Handle successful submission (e.g., show a success message or navigate to another page)
-    //   alert("Documents uploaded successfully.");
-    // } catch (error: any) {
-    //   setIsSubmitted(false);
-    //   // Handle the error (e.g., show an error message)
-    //   alert(error.message);
-    // }
   };
 
   return (
@@ -152,7 +110,7 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
         </div>
         <div className={styles.cancel__upload__container}>
           <CancelButton onClick={askCloseConfirmation} />
-          <UploadButton onClick={handleSubmit} />
+          <UploadButton onClick={onSubmit} />
         </div>
       </div>
       {showCloseConfirmation && (

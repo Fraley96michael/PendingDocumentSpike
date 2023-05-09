@@ -22,8 +22,8 @@ export const DocumentItem = ({
     />
     <p className={styles.label}>
       {label}
-      {isSubmitted && (
-        <strong className={styles.labelEmphasis1}> {emphasis}</strong>
+      {isSubmitted && hasFile && (
+        <strong className={styles.labelEmphasis1}> Approved Document</strong>
       )}
     </p>
   </div>

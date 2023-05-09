@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, ChangeEvent } from "react";
+import { DocType, HandleSubmitOptions } from "./types";
 
 /*
 UploadFileLocation.tsx
@@ -176,3 +177,46 @@ export function createFileList(files: File[]): FileList {
 
   return fileList as FileList;
 }
+
+/**
+ * UploadModal
+ */
+export const handleSubmit = ({
+  showUploadLocations,
+  minRequiredFiles,
+  setIsSubmitted,
+  onSuccess,
+  onError,
+}: HandleSubmitOptions) => {
+  // Validate the form
+  const requiredFileTypes: DocType[] = [
+    "birthCertificate",
+    "hospitalRecords",
+    "socialSecurityCard",
+    "adoptionCertificate",
+  ];
+  const uploadedFileTypes = requiredFileTypes.filter(
+    (docType: DocType) => showUploadLocations[docType].file !== null
+  );
+
+  if (uploadedFileTypes.length < minRequiredFiles) {
+    onError && onError("Please upload at least two of the required documents.");
+    return;
+  }
+
+  setIsSubmitted(true);
+
+  // Gather the uploaded files
+  const formData = new FormData();
+  uploadedFileTypes.forEach((docType: DocType) => {
+    formData.append(docType, showUploadLocations[docType].file as File);
+  });
+
+  // Simulate the submission process
+  setTimeout(() => {
+    alert("Documents uploaded successfully.");
+    setIsSubmitted(false);
+    onSuccess();
+  }, 2000);
+  // TODO API CALL
+};

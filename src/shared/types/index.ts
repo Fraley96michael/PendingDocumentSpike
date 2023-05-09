@@ -11,6 +11,19 @@ export interface DocumentRequest {
   documentsRequired: number;
   documents: Document[];
 }
+export interface ShowUploadLocation {
+  [key: string]: {
+    file: File | null;
+  };
+}
+
+export interface HandleSubmitOptions {
+  showUploadLocations: ShowUploadLocation;
+  minRequiredFiles: number;
+  setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
+  onSuccess: () => void;
+  onError?: (errorMessage: string) => void;
+}
 export type DocType =
   | "birthCertificate"
   | "hospitalRecords"

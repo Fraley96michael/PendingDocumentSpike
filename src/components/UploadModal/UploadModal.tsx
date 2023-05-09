@@ -14,9 +14,11 @@ import DocumentUpload from "./DocumentUpload";
 import {
   handleCloseConfirmation,
   handleDeleteFile,
+  handleSubmit,
   handleToggleUploadLocation,
   updateUploadedFiles,
 } from "../../shared/utils";
+import { documentTypes } from "../../shared/types/enums";
 
 const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
   type DocType =
@@ -31,13 +33,7 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
     adoptionCertificate: { show: false, file: null as File | null },
   });
   const [showCloseConfirmation, setShowCloseConfirmation] = useState(false);
-
-  const documentTypes: { label: string; key: DocType }[] = [
-    { label: "Birth Certificate", key: "birthCertificate" },
-    { label: "Hospital Records", key: "hospitalRecords" },
-    { label: "Social Security Card", key: "socialSecurityCard" },
-    { label: "Adoption Certificate", key: "adoptionCertificate" },
-  ];
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const askCloseConfirmation = () => {
     setShowCloseConfirmation(true);
@@ -46,6 +42,22 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
     if (event.target === event.currentTarget) {
       handleCloseConfirmation(false, closeModal, setShowCloseConfirmation);
     }
+  };
+  const handleSuccess = () => {
+    console.log("Documents uploaded successfully.");
+  };
+
+  const handleError = (errorMessage: string) => {
+    alert(errorMessage);
+  };
+  const onSubmit = () => {
+    handleSubmit({
+      showUploadLocations,
+      minRequiredFiles: 2,
+      setIsSubmitted,
+      onSuccess: handleSuccess,
+      onError: handleError,
+    });
   };
   return (
     <div className={styles.overlay} onClick={onHandleCloseConfirmation}>
@@ -98,6 +110,7 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
                       setShowUploadLocations
                     )
                   }
+                  isSubmitted={isSubmitted}
                 />
               ))}
             </div>
@@ -105,7 +118,7 @@ const UploadModal = ({ closeModal }: { closeModal: () => void }) => {
         </div>
         <div className={styles.cancel__upload__container}>
           <CancelButton onClick={askCloseConfirmation} />
-          <UploadButton />
+          <UploadButton onClick={onSubmit} />
         </div>
       </div>
       {showCloseConfirmation && (

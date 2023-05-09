@@ -3,6 +3,10 @@
   color: $gray-700;
   @include text-xs-leading-5-font-normal;
 }
+.labelEmphasis1 {
+  color: $green-700;
+  @include text-xs-leading-5-font-normal;
+}
 .formFieldsCheckbox {
   display: flex;
   align-items: center;
