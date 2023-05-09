@@ -1,0 +1,33 @@
+// AlertWithExclamation.module.scss
+@import "./Root.module.scss";
+
+.alertContainer {
+  margin-bottom: 10px;
+  width: 490px;
+  background-color: $orange-50;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.exclamationContainer {
+  margin-right: 12px;
+  width: 20px;
+  height: 30px;
+  padding: 2.5px 2.55px 4.17px 2.56px;
+  display: flex;
+  align-items: center;
+}
+
+.exclamationIcon {
+  flex: 1;
+  align-self: stretch;
+  object-fit: cover;
+}
+
+.alertTitle {
+  color: $yellow-800;
+  align-self: stretch;
+  @include text-xs-leading-5-font-medium;
+}

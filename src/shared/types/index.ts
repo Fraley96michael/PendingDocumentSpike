@@ -11,6 +11,11 @@ export interface DocumentRequest {
   documentsRequired: number;
   documents: Document[];
 }
+export type DocType =
+  | "birthCertificate"
+  | "hospitalRecords"
+  | "socialSecurityCard"
+  | "adoptionCertificate";
 
 export interface Document {
   docType: string;

@@ -4,12 +4,27 @@ import FormFieldsCheckboxInput from "./FormFieldsCheckboxInput";
 export const DocumentItem = ({
   label,
   onToggle,
+  isSubmitted,
+  emphasis,
+  hasFile,
 }: {
   label: string;
   onToggle: () => void;
+  isSubmitted?: boolean;
+  emphasis?: string;
+  hasFile?: boolean;
 }) => (
   <div className={styles.formFieldsCheckbox}>
-    <FormFieldsCheckboxInput onToggle={onToggle} />
-    <p className={styles.label}>{label}</p>
+    <FormFieldsCheckboxInput
+      onToggle={onToggle}
+      isSubmitted={isSubmitted}
+      hasFile={hasFile}
+    />
+    <p className={styles.label}>
+      {label}
+      {isSubmitted && (
+        <strong className={styles.labelEmphasis1}> {emphasis}</strong>
+      )}
+    </p>
   </div>
 );

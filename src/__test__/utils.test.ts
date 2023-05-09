@@ -6,7 +6,7 @@ import {
   handleDrop,
   handleDragOver,
   handleDelete,
-  handleButtonClick,
+  openModalBasedOnStatus,
   handleToggleUploadLocation,
   handleCloseConfirmation,
   handleDeleteFile,
@@ -92,10 +92,10 @@ describe("Utils", () => {
     const openUploadModal = jest.fn();
     const openReviewDocumentsModal = jest.fn();
 
-    handleButtonClick("Upload", openUploadModal, openReviewDocumentsModal);
+    openModalBasedOnStatus("Upload", openUploadModal, openReviewDocumentsModal);
     expect(openUploadModal).toHaveBeenCalledWith();
 
-    handleButtonClick(
+    openModalBasedOnStatus(
       "Review Documents",
       openUploadModal,
       openReviewDocumentsModal

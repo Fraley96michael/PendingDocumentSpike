@@ -3,21 +3,23 @@ import { Dispatch, SetStateAction, ChangeEvent } from "react";
 /*
 UploadFileLocation.tsx
 */
-export function handleFileUpload(
+export const handleFileUpload = (
   files: File[] | null,
-  setUploadedFiles: Dispatch<SetStateAction<(File | null)[]>>,
-  setIsFileAccepted: Dispatch<SetStateAction<boolean | null>>
-) {
+  setIsFileAccepted: React.Dispatch<React.SetStateAction<boolean | null>>,
+  setUploadedFiles: React.Dispatch<React.SetStateAction<(File | null)[]>>,
+  updateUploadedFiles: (files: (File | null)[]) => void
+) => {
   if (files) {
     files.forEach((file) => {
       setIsFileAccepted(file.type === "application/pdf");
       setUploadedFiles((prev) => [...prev, file]);
+      updateUploadedFiles([file]);
     });
   } else {
     setIsFileAccepted(null);
     setUploadedFiles([]);
   }
-}
+};
 
 export const handleDrop = (
   e: React.DragEvent<HTMLDivElement>,
@@ -52,15 +54,22 @@ export const handleDelete = (
 /*
 DocumentTable.tsx
 */
-export const handleButtonClick = (
+export const openModalBasedOnStatus = (
   uploadText: string,
+  status: string,
   openUploadModal: () => void,
-  openReviewDocumentsModal: () => void
+  openReviewDocumentsModal: () => void,
+  openUploadModalEdit: () => void
 ): void => {
   if (uploadText === "Upload") {
     openUploadModal();
-  } else if (uploadText === "Review Documents") {
+  } else if (
+    uploadText === "Review Documents" &&
+    status !== "Declined/Invalid"
+  ) {
     openReviewDocumentsModal();
+  } else if (status === "Declined/Invalid") {
+    openUploadModalEdit();
   }
 };
 /**

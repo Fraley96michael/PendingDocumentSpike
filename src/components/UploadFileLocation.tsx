@@ -20,53 +20,6 @@ function UploadFileLocation({
   handleDeleteFile: (file: File) => void;
   updateUploadedFiles: (files: (File | null)[]) => void;
 }) {
-  // const dropzoneRef = useRef<HTMLDivElement>(null);
-
-  // const [isFileAccepted, setIsFileAccepted] = useState<boolean | null>(null);
-  // const [uploadedFiles, setUploadedFiles] = useState<(File | null)[]>(
-  //   initialUploadedFiles ? initialUploadedFiles : []
-  // );
-
-  // const handleFileUpload = useCallback(
-  //   (files: File[] | null) => {
-  //     if (files) {
-  //       files.forEach((file) => {
-  //         setIsFileAccepted(file.type === "application/pdf");
-  //         setUploadedFiles((prev) => [...prev, file]);
-  //       });
-  //     } else {
-  //       setIsFileAccepted(null);
-  //       setUploadedFiles([]);
-  //     }
-  //   },
-  //   [setUploadedFiles]
-  // );
-
-  // const handleDrop = useCallback(
-  //   (e: React.DragEvent<HTMLDivElement>) => {
-  //     e.preventDefault();
-  //     const files = e.dataTransfer.files;
-  //     if (files.length > 0) {
-  //       handleFileUpload(Array.from(files));
-  //     }
-  //   },
-  //   [handleFileUpload]
-  // );
-
-  // const handleDragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-  //   e.preventDefault();
-  //   e.dataTransfer.dropEffect = "copy";
-  // }, []);
-
-  // const handleDelete = (fileToDelete: File) => {
-  //   const newUploadedFiles = uploadedFiles.filter(
-  //     (file) => file !== fileToDelete
-  //   );
-  //   setUploadedFiles(newUploadedFiles);
-  //   handleDeleteFile(fileToDelete);
-  //   updateUploadedFiles(newUploadedFiles);
-  // };
-
   const dropzoneRef = useRef<HTMLDivElement>(null);
 
   const [isFileAccepted, setIsFileAccepted] = useState<boolean | null>(null);
@@ -76,9 +29,14 @@ function UploadFileLocation({
 
   const handleFileUploadCallback = useCallback(
     (files: File[] | null) => {
-      handleFileUpload(files, setUploadedFiles, setIsFileAccepted);
+      handleFileUpload(
+        files,
+        setIsFileAccepted,
+        setUploadedFiles,
+        updateUploadedFiles
+      );
     },
-    [setUploadedFiles, setIsFileAccepted]
+    [setIsFileAccepted, setUploadedFiles, updateUploadedFiles]
   );
 
   const handleDropCallback = useCallback(

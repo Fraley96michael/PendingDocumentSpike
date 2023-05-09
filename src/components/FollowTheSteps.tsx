@@ -3,21 +3,29 @@ import DocumentTable from "./DocumentTable";
 import styles from "/src/scss/modules/FollowTheSteps.module.scss";
 import UploadModal from "./UploadModal/UploadModal";
 import DocumentReviewModal from "./DocumentReviewModal/DocumentReviewModal";
+import UploadModalEdit from "./UploadModal/UploadModalEdit";
 
 export const FollowTheSteps = () => {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [showReviewDocumentsModal, setShowReviewDocumentsModal] =
     useState(false);
+  const [showUploadModalEdit, setShowUploadModalEdit] = useState(false);
 
   const openUploadModal = () => {
     setShowUploadModal(true);
   };
-
-  const openReviewDocumentsModal = () => {
-    setShowReviewDocumentsModal(true);
-  };
   const closeUploadModal = () => {
     setShowUploadModal(false);
+  };
+
+  const openUploadModalEdit = () => {
+    setShowUploadModalEdit(true);
+  };
+  const closeUploadModalEdit = () => {
+    setShowUploadModalEdit(false);
+  };
+  const openReviewDocumentsModal = () => {
+    setShowReviewDocumentsModal(true);
   };
   const closeDocumentReviewModal = () => {
     setShowReviewDocumentsModal(false);
@@ -48,9 +56,13 @@ export const FollowTheSteps = () => {
       {showReviewDocumentsModal && (
         <DocumentReviewModal closeModal={closeDocumentReviewModal} />
       )}
+      {showUploadModalEdit && (
+        <UploadModalEdit closeModal={closeUploadModalEdit} />
+      )}
       <DocumentTable
         openUploadModal={openUploadModal}
         openReviewDocumentsModal={openReviewDocumentsModal}
+        openUploadModalEdit={openUploadModalEdit}
       />
     </div>
   );

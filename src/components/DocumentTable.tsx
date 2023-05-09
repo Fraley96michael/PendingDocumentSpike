@@ -1,14 +1,16 @@
 import styles from "/src/scss/modules/CustomTable.module.scss";
 import Info from "./Info";
 import Badge from "./Badge";
-import { handleButtonClick } from "../shared/utils";
+import { openModalBasedOnStatus } from "../shared/utils";
 
 const DocumentTable = ({
   openUploadModal,
   openReviewDocumentsModal,
+  openUploadModalEdit,
 }: {
   openUploadModal: () => void;
   openReviewDocumentsModal: () => void;
+  openUploadModalEdit: () => void;
 }) => {
   const data: any[] = [
     {
@@ -94,10 +96,12 @@ const DocumentTable = ({
               <div
                 className={styles.button}
                 onClick={() =>
-                  handleButtonClick(
+                  openModalBasedOnStatus(
                     row.uploadText,
+                    row.status.text,
                     openUploadModal,
-                    openReviewDocumentsModal
+                    openReviewDocumentsModal,
+                    openUploadModalEdit
                   )
                 }
               >
